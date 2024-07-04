@@ -4,7 +4,7 @@ use std::io::prelude::*;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let config = parse_config(&args);
+    let config = Config::new(&args);
 
     let mut f = File::open(config.file_name).expect("File not Found ;(");
     let mut contents = String::new();
@@ -22,9 +22,11 @@ struct Config<'a> {
     file_name: &'a str,
 }
 
-fn parse_config(args: &Vec<String>) -> Config {
-    let query = &args[1];
-    let file_name = &args[2];
+impl<'a> Config<'a> {
+    fn new(args: &Vec<String>) -> Config {
+        let query = &args[1];
+        let file_name = &args[2];
 
-    Config { query, file_name }
+        Config { query, file_name }
+    }
 }
