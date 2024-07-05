@@ -25,10 +25,9 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let mut contents = String::new();
     f.read_to_string(&mut contents)?;
 
-    println!(
-        "\n---Searching {} in File Content ---\n\n{}",
-        config.query, contents
-    );
+    for line in search(&config.query, &contents) {
+        println!("{}", line);
+    }
 
     Ok(())
 }
